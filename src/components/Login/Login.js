@@ -14,11 +14,19 @@ const Login = (props) => {
   const [collegeIsValid, setCollegeIsValid] = useState();
 
   useEffect(() => {
-    setFormIsValid(
-      enteredEmail.includes("@") &&
-        enteredPassword.trim().length > 6 &&
-        enteredCollege.trim().length > 0
-    );
+    const identifier = setTimeout(() => {
+      console.log("check");
+      setFormIsValid(
+        enteredEmail.includes("@") &&
+          enteredPassword.trim().length > 6 &&
+          enteredCollege.trim().length > 0
+      );
+    }, 500);
+
+    return () => {
+      console.log("cleanup");
+      clearTimeout(identifier);
+    };
   }, [enteredEmail, enteredPassword, enteredCollege]);
 
   const emailChangeHandler = (event) => {
